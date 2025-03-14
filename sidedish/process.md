@@ -3,3 +3,9 @@
 # 작업 내용
 1. how to send request in python?
 pip3 install requests
+
+2. how to convert response.text to html?
+pip3 install beautifulsoup4
+
+3. ui
+tkinter
