@@ -170,3 +170,5 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 sidedish/results
+sidedish/data.json
+sidedish/.DS_Store
