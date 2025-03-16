@@ -172,3 +172,4 @@ cython_debug/
 sidedish/results
 sidedish/data.json
 sidedish/.DS_Store
+.DS_Store

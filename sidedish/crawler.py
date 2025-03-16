@@ -1,6 +1,5 @@
 import os
 from bs4 import BeautifulSoup
-import cloudscraper
 import requests;
 import time
 
