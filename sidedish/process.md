@@ -21,7 +21,8 @@ mac version 2
 - 이거 하면 바로 실행되긴 하는데 아직 아님: rm -rf build dist && pyinstaller main.py
 - spec 파일 생성: `pyi-makespec --onefile sidedish.py`
     - sepc 파일에서 version 명시, console(terminal) 실행여부, 결과물 파일 이름 지정 가능.(sepc 파일 참고)
-- 최종 빌드: `pyinstaller main.spec`
+- 최종 빌드: `rm -rf build dist && pyinstaller stable.spec`
+- 참고 사항: spec 파일에 exe 말고 app 을 선언해줘야 app 파일이 생성됨.
 
 # Erros
 
