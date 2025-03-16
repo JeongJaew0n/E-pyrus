@@ -4,6 +4,7 @@ import sys
 import random
 import json
 from dataclasses import dataclass
+import os
 
 
 def start_ui():
@@ -95,7 +96,7 @@ def start_ui():
         cf_clearance: str
         chapter_index: str
 
-    local_stroage_json = "data.json"
+    local_storage_json = "data.json"
     def save_action():
         data = {
             "url": url_input.get(),
@@ -104,15 +105,21 @@ def start_ui():
             "chapter_index": chapter_index_input.get()
         }
 
-        with open(local_stroage_json, "w", encoding="utf-8") as file:
+        with open(local_storage_json, "w", encoding="utf-8") as file:
             json.dump(data, file, indent=4)
         print("File has been saved successfully ✅")
 
     def load_action():
-        with open(local_stroage_json, "r", encoding="utf-8") as file:
-            loaded_data = json.load(file)
-            
-            set_data(LocalData(**loaded_data))
+        try:
+            if not os.path.exists(local_storage_json):
+                raise FileNotFoundError(f"File not found: {local_storage_json}")
+
+            with open(local_storage_json, "r", encoding="utf-8") as file:
+                loaded_data = json.load(file)
+                
+                set_data(LocalData(**loaded_data))
+        except:
+            print(f"The file '{local_storage_json}' does not exist.")
 
     def set_data(localData: LocalData):
         url_input.delete(0, tk.END)
@@ -170,3 +177,5 @@ def start_ui():
 
     # Run the Tkinter event loop
     root.mainloop()
+
+
