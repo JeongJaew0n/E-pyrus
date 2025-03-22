@@ -1,1 +1,2 @@
-# EBook-Scanner
+# E-apyrus
+Ebook utils
