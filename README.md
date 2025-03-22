@@ -1,2 +1,2 @@
-# E-apyrus
+# E-pyrus
 Ebook utils
