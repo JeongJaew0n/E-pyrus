@@ -4,7 +4,7 @@ import time
 from pathlib import Path
 
 # ✅ OpenAI API 키 설정
-OPENAI_API_KEY = "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"  # <-- 여기에 본인의 API 키 입력
+OPENAI_API_KEY = ""  # <-- 여기에 본인의 API 키 입력
 
 # ✅ 현재 스크립트 기준 상대 경로로 입력/출력 경로 지정
 BASE_DIR = Path(__file__).resolve().parent
