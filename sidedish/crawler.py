@@ -29,6 +29,7 @@ def getListHtml(url, headers, saveFile:bool = False):
 
     else:
         print(f"List crawling failed ❌: {response.status_code} ")
+        return None  # 명시적으로 None 반환
 
 # 파일 읽기
 def readFile(path):
