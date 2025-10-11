@@ -1,7 +1,7 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const fs = require('fs');
-const { getListHtml, parseList } = require('./crawler'); // crawler.js 가져오기
+const { getListHtml, parseList, scanAllChapters } = require('./crawler'); // crawler.js 가져오기
 
 let mainWindow;
 const credentialsPath = path.join(app.getPath('userData'), 'credentials.json'); // 저장 경로
@@ -37,7 +37,7 @@ ipcMain.on('start-crawling', async (event, { url, headers }) => {
       event.sender.send('crawling-output', `Success to fetch the list HTML. \n ${html}`);
     }
 
-    const { title, chapterList } = parseList(html);
+    const { title, novelPath, chapterList } = parseList(html);
     if (chapterList.length === 0) {
       event.sender.send('crawling-output', 'No chapters found.');
       return;
@@ -45,9 +45,10 @@ ipcMain.on('start-crawling', async (event, { url, headers }) => {
 
     event.sender.send('crawling-output', `Novel Title: ${title}`);
     event.sender.send('crawling-output', `Chapters Found: ${chapterList.length}`);
-    chapterList.forEach((chapter) => {
-      event.sender.send('crawling-output', `Chapter: ${chapter.title}, Link: ${chapter.link}`);
-    });
+    scanAllChapters(chapterList, headers, novelPath);
+    // chapterList.forEach((chapter) => {
+    //   event.sender.send('crawling-output', `Chapter: ${chapter.title}, Link: ${chapter.link}`);
+    // });
   } catch (error) {
     event.sender.send('crawling-output', `An error occurred: ${error.message}`);
   }
