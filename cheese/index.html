@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Electron Puppeteer App</title>
+</head>
+<body>
+  <h1>Electron Puppeteer App</h1>
+  <form id="crawler-form">
+    <label for="url">URL:</label>
+    <input type="text" id="url" name="url" required>
+    <br>
+    <label for="PHPSESSID">PHPSESSID:</label>
+    <input type="text" id="PHPSESSID" name="PHPSESSID" required>
+    <br>
+    <label for="cf_clearance">cf_clearance:</label>
+    <input type="text" id="cf_clearance" name="cf_clearance" required>
+    <br>
+    <button type="submit">Start Crawling</button>
+    <button type="button" id="save-credentials">Save</button>
+    <button type="button" id="load-credentials">Load</button>
+  </form>
+  <pre id="output"></pre>
+  <script src="renderer.js"></script>
+</body>
+</html>

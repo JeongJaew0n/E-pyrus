@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+
+<head>
+    <title>Just a moment...</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="robots" content="noindex,nofollow">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        html {
+            line-height: 1.15;
+            -webkit-text-size-adjust: 100%;
+            color: #313131;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            min-height: 100vh
+        }
+
+        .main-content {
+            margin: 8rem auto;
+            padding-left: 1.5rem;
+            max-width: 60rem
+        }
+
+        @media (width <=720px) {
+            .main-content {
+                margin-top: 4rem
+            }
+        }
+
+        .h2 {
+            line-height: 2.25rem;
+            font-size: 1.5rem;
+            font-weight: 500
+        }
+
+        @media (width <=720px) {
+            .h2 {
+                line-height: 1.5rem;
+                font-size: 1.25rem
+            }
+        }
+
+        #challenge-error-text {
+            background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0ibm9uZSI+PHBhdGggZmlsbD0iI0IyMEYwMyIgZD0iTTE2IDNhMTMgMTMgMCAxIDAgMTMgMTNBMTMuMDE1IDEzLjAxNSAwIDAgMCAxNiAzbTAgMjRhMTEgMTEgMCAxIDEgMTEtMTEgMTEuMDEgMTEuMDEgMCAwIDEtMTEgMTEiLz48cGF0aCBmaWxsPSIjQjIwRjAzIiBkPSJNMTcuMDM4IDE4LjYxNUgxNC44N0wxNC41NjMgOS41aDIuNzgzem0tMS4wODQgMS40MjdxLjY2IDAgMS4wNTcuMzg4LjQwNy4zODkuNDA3Ljk5NCAwIC41OTYtLjQwNy45ODQtLjM5Ny4zOS0xLjA1Ny4zODktLjY1IDAtMS4wNTYtLjM4OS0uMzk4LS4zODktLjM5OC0uOTg0IDAtLjU5Ny4zOTgtLjk4NS40MDYtLjM5NyAxLjA1Ni0uMzk3Ii8+PC9zdmc+");
+            background-repeat: no-repeat;
+            background-size: contain;
+            padding-left: 34px
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #222;
+                color: #d9d9d9
+            }
+        }
+    </style>
+    <meta http-equiv="refresh" content="360">
+    <script src="/cdn-cgi/challenge-platform/h/g/orchestrate/chl_page/v1?ray=98cda342dc846ad4"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        html {
+            line-height: 1.15;
+            -webkit-text-size-adjust: 100%;
+            color: #313131;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"
+        }
+
+        button {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            min-height: 100vh
+        }
+
+        body.theme-dark {
+            background-color: #222;
+            color: #d9d9d9
+        }
+
+        body.theme-dark a {
+            color: #fff
+        }
+
+        body.theme-dark a:hover {
+            text-decoration: underline;
+            color: #ee730a
+        }
+
+        body.theme-dark .lds-ring div {
+            border-color: #999 rgba(0, 0, 0, 0) rgba(0, 0, 0, 0)
+        }
+
+        body.theme-dark .font-red {
+            color: #b20f03
+        }
+
+        body.theme-dark .ctp-button {
+            background-color: #4693ff;
+            color: #1d1d1d
+        }
+
+        body.theme-dark #challenge-success-text {
+            background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0ibm9uZSIgdmlld0JveD0iMCAwIDI2IDI2Ij48cGF0aCBmaWxsPSIjZDlkOWQ5IiBkPSJNMTMgMGExMyAxMyAwIDEgMCAwIDI2IDEzIDEzIDAgMCAwIDAtMjZtMCAyNGExMSAxMSAwIDEgMSAwLTIyIDExIDExIDAgMCAxIDAgMjIiLz48cGF0aCBmaWxsPSIjZDlkOWQ5IiBkPSJtMTAuOTU1IDE2LjA1NS0zLjk1LTQuMTI1LTEuNDQ1IDEuMzg1IDUuMzcgNS42MSA5LjQ5NS05LjYtMS40Mi0xLjQwNXoiLz48L3N2Zz4")
+        }
+
+        body.theme-dark #challenge-error-text {
+            background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0ibm9uZSI+PHBhdGggZmlsbD0iI0IyMEYwMyIgZD0iTTE2IDNhMTMgMTMgMCAxIDAgMTMgMTNBMTMuMDE1IDEzLjAxNSAwIDAgMCAxNiAzbTAgMjRhMTEgMTEgMCAxIDEgMTEtMTEgMTEuMDEgMTEuMDEgMCAwIDEtMTEgMTEiLz48cGF0aCBmaWxsPSIjQjIwRjAzIiBkPSJNMTcuMDM4IDE4LjYxNUgxNC44N0wxNC41NjMgOS41aDIuNzgzem0tMS4wODQgMS40MjdxLjY2IDAgMS4wNTcuMzg4LjQwNy4zODkuNDA3Ljk5NCAwIC41OTYtLjQwNy45ODQtLjM5Ny4zOS0xLjA1Ny4zODktLjY1IDAtMS4wNTYtLjM4OS0uMzk4LS4zODktLjM5OC0uOTg0IDAtLjU5Ny4zOTgtLjk4NS40MDYtLjM5NyAxLjA1Ni0uMzk3Ii8+PC9zdmc+")
+        }
+
+        body.theme-light {
+            background-color: #fff;
+            color: #313131
+        }
+
+        body.theme-light a {
+            color: #0051c3
+        }
+
+        body.theme-light a:hover {
+            text-decoration: underline;
+            color: #ee730a
+        }
+
+        body.theme-light .lds-ring div {
+            border-color: #595959 rgba(0, 0, 0, 0) rgba(0, 0, 0, 0)
+        }
+
+        body.theme-light .font-red {
+            color: #fc574a
+        }
+
+        body.theme-light .ctp-button {
+            border-color: #003681;
+            background-color: #003681;
+            color: #fff
+        }
+
+        body.theme-light #challenge-success-text {
+            background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0ibm9uZSIgdmlld0JveD0iMCAwIDI2IDI2Ij48cGF0aCBmaWxsPSIjMzEzMTMxIiBkPSJNMTMgMGExMyAxMyAwIDEgMCAwIDI2IDEzIDEzIDAgMCAwIDAtMjZtMCAyNGExMSAxMSAwIDEgMSAwLTIyIDExIDExIDAgMCAxIDAgMjIiLz48cGF0aCBmaWxsPSIjMzEzMTMxIiBkPSJtMTAuOTU1IDE2LjA1NS0zLjk1LTQuMTI1LTEuNDQ1IDEuMzg1IDUuMzcgNS42MSA5LjQ5NS05LjYtMS40Mi0xLjQwNXoiLz48L3N2Zz4=")
+        }
+
+        body.theme-light #challenge-error-text {
+            background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0ibm9uZSI+PHBhdGggZmlsbD0iI2ZjNTc0YSIgZD0iTTE2IDNhMTMgMTMgMCAxIDAgMTMgMTNBMTMuMDE1IDEzLjAxNSAwIDAgMCAxNiAzbTAgMjRhMTEgMTEgMCAxIDEgMTEtMTEgMTEuMDEgMTEuMDEgMCAwIDEtMTEgMTEiLz48cGF0aCBmaWxsPSIjZmM1NzRhIiBkPSJNMTcuMDM4IDE4LjYxNUgxNC44N0wxNC41NjMgOS41aDIuNzgzem0tMS4wODQgMS40MjdxLjY2IDAgMS4wNTcuMzg4LjQwNy4zODkuNDA3Ljk5NCAwIC41OTYtLjQwNy45ODQtLjM5Ny4zOS0xLjA1Ny4zODktLjY1IDAtMS4wNTYtLjM4OS0uMzk4LS4zODktLjM5OC0uOTg0IDAtLjU5Ny4zOTgtLjk4NS40MDYtLjM5NyAxLjA1Ni0uMzk3Ii8+PC9zdmc+")
+        }
+
+        a {
+            transition: color 150ms ease;
+            background-color: rgba(0, 0, 0, 0);
+            text-decoration: none;
+            color: #0051c3
+        }
+
+        a:hover {
+            text-decoration: underline;
+            color: #ee730a
+        }
+
+        .main-content {
+            margin: 8rem auto;
+            padding-right: 1.5rem;
+            padding-left: 1.5rem;
+            width: 100%;
+            max-width: 60rem
+        }
+
+        .main-content .loading-verifying {
+            height: 76.391px
+        }
+
+        .spacer {
+            margin: 2rem 0
+        }
+
+        .spacer-top {
+            margin-top: 4rem
+        }
+
+        .spacer-bottom {
+            margin-bottom: 2rem
+        }
+
+        .heading-favicon {
+            margin-right: .5rem;
+            width: 2rem;
+            height: 2rem
+        }
+
+        @media (width <=720px) {
+            .main-content {
+                margin-top: 4rem
+            }
+
+            .heading-favicon {
+                width: 1.5rem;
+                height: 1.5rem
+            }
+        }
+
+        .main-wrapper {
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+            align-items: center
+        }
+
+        .font-red {
+            color: #b20f03
+        }
+
+        .h1 {
+            line-height: 3.75rem;
+            font-size: 2.5rem;
+            font-weight: 500
+        }
+
+        .h2 {
+            line-height: 2.25rem;
+            font-size: 1.5rem;
+            font-weight: 500
+        }
+
+        .core-msg {
+            line-height: 2.25rem;
+            font-size: 1.5rem;
+            font-weight: 400
+        }
+
+        .body-text {
+            line-height: 1.25rem;
+            font-size: 1rem;
+            font-weight: 400
+        }
+
+        @media (width <=720px) {
+            .h1 {
+                line-height: 1.75rem;
+                font-size: 1.5rem
+            }
+
+            .h2 {
+                line-height: 1.5rem;
+                font-size: 1.25rem
+            }
+
+            .core-msg {
+                line-height: 1.5rem;
+                font-size: 1rem
+            }
+        }
+
+        #challenge-error-text {
+            background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0ibm9uZSI+PHBhdGggZmlsbD0iI2ZjNTc0YSIgZD0iTTE2IDNhMTMgMTMgMCAxIDAgMTMgMTNBMTMuMDE1IDEzLjAxNSAwIDAgMCAxNiAzbTAgMjRhMTEgMTEgMCAxIDEgMTEtMTEgMTEuMDEgMTEuMDEgMCAwIDEtMTEgMTEiLz48cGF0aCBmaWxsPSIjZmM1NzRhIiBkPSJNMTcuMDM4IDE4LjYxNUgxNC44N0wxNC41NjMgOS41aDIuNzgzem0tMS4wODQgMS40MjdxLjY2IDAgMS4wNTcuMzg4LjQwNy4zODkuNDA3Ljk5NCAwIC41OTYtLjQwNy45ODQtLjM5Ny4zOS0xLjA1Ny4zODktLjY1IDAtMS4wNTYtLjM4OS0uMzk4LS4zODktLjM5OC0uOTg0IDAtLjU5Ny4zOTgtLjk4NS40MDYtLjM5NyAxLjA1Ni0uMzk3Ii8+PC9zdmc+");
+            background-repeat: no-repeat;
+            background-size: contain;
+            padding-left: 34px
+        }
+
+        #challenge-success-text {
+            background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0ibm9uZSIgdmlld0JveD0iMCAwIDI2IDI2Ij48cGF0aCBmaWxsPSIjMzEzMTMxIiBkPSJNMTMgMGExMyAxMyAwIDEgMCAwIDI2IDEzIDEzIDAgMCAwIDAtMjZtMCAyNGExMSAxMSAwIDEgMSAwLTIyIDExIDExIDAgMCAxIDAgMjIiLz48cGF0aCBmaWxsPSIjMzEzMTMxIiBkPSJtMTAuOTU1IDE2LjA1NS0zLjk1LTQuMTI1LTEuNDQ1IDEuMzg1IDUuMzcgNS42MSA5LjQ5NS05LjYtMS40Mi0xLjQwNXoiLz48L3N2Zz4=");
+            background-repeat: no-repeat;
+            background-size: contain;
+            padding-left: 42px
+        }
+
+        .text-center {
+            text-align: center
+        }
+
+        .ctp-button {
+            transition-duration: 200ms;
+            transition-property: background-color, border-color, color;
+            transition-timing-function: ease;
+            margin: 2rem 0;
+            border: .063rem solid #0051c3;
+            border-radius: .313rem;
+            background-color: #0051c3;
+            cursor: pointer;
+            padding: .375rem 1rem;
+            line-height: 1.313rem;
+            color: #fff;
+            font-size: .875rem
+        }
+
+        .ctp-button:hover {
+            border-color: #003681;
+            background-color: #003681;
+            cursor: pointer;
+            color: #fff
+        }
+
+        .footer {
+            margin: 0 auto;
+            padding-right: 1.5rem;
+            padding-left: 1.5rem;
+            width: 100%;
+            max-width: 60rem;
+            line-height: 1.125rem;
+            font-size: .75rem
+        }
+
+        .footer-inner {
+            border-top: 1px solid #d9d9d9;
+            padding-top: 1rem;
+            padding-bottom: 1rem
+        }
+
+        .clearfix::after {
+            display: table;
+            clear: both;
+            content: ""
+        }
+
+        .clearfix .column {
+            float: left;
+            padding-right: 1.5rem;
+            width: 50%
+        }
+
+        .diagnostic-wrapper {
+            margin-bottom: .5rem
+        }
+
+        .footer .ray-id {
+            text-align: center
+        }
+
+        .footer .ray-id code {
+            font-family: monaco, courier, monospace
+        }
+
+        .core-msg,
+        .zone-name-title {
+            overflow-wrap: break-word
+        }
+
+        @media (width <=720px) {
+            .diagnostic-wrapper {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center
+            }
+
+            .clearfix::after {
+                display: initial;
+                clear: none;
+                text-align: center;
+                content: none
+            }
+
+            .column {
+                padding-bottom: 2rem
+            }
+
+            .clearfix .column {
+                float: none;
+                padding: 0;
+                width: auto;
+                word-break: keep-all
+            }
+
+            .zone-name-title {
+                margin-bottom: 1rem
+            }
+        }
+
+        .loading-verifying {
+            height: 76.391px
+        }
+
+        .lds-ring {
+            display: inline-block;
+            position: relative;
+            width: 1.875rem;
+            height: 1.875rem
+        }
+
+        .lds-ring div {
+            box-sizing: border-box;
+            display: block;
+            position: absolute;
+            border: .3rem solid #595959;
+            border-radius: 50%;
+            border-color: #313131 rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
+            width: 1.875rem;
+            height: 1.875rem;
+            animation: lds-ring 1.2s cubic-bezier(.5, 0, .5, 1) infinite
+        }
+
+        .lds-ring div:nth-child(1) {
+            animation-delay: -.45s
+        }
+
+        .lds-ring div:nth-child(2) {
+            animation-delay: -.3s
+        }
+
+        .lds-ring div:nth-child(3) {
+            animation-delay: -.15s
+        }
+
+        @keyframes lds-ring {
+            0% {
+                transform: rotate(0deg)
+            }
+
+            100% {
+                transform: rotate(360deg)
+            }
+        }
+
+        .rtl .heading-favicon {
+            margin-right: 0;
+            margin-left: .5rem
+        }
+
+        .rtl #challenge-success-text {
+            background-position: right;
+            padding-right: 42px;
+            padding-left: 0
+        }
+
+        .rtl #challenge-error-text {
+            background-position: right;
+            padding-right: 34px;
+            padding-left: 0
+        }
+
+        .challenge-content .loading-verifying {
+            height: 76.391px
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #222;
+                color: #d9d9d9
+            }
+
+            body a {
+                color: #fff
+            }
+
+            body a:hover {
+                text-decoration: underline;
+                color: #ee730a
+            }
+
+            body .lds-ring div {
+                border-color: #999 rgba(0, 0, 0, 0) rgba(0, 0, 0, 0)
+            }
+
+            body .font-red {
+                color: #b20f03
+            }
+
+            body .ctp-button {
+                background-color: #4693ff;
+                color: #1d1d1d
+            }
+
+            body #challenge-success-text {
+                background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0ibm9uZSIgdmlld0JveD0iMCAwIDI2IDI2Ij48cGF0aCBmaWxsPSIjZDlkOWQ5IiBkPSJNMTMgMGExMyAxMyAwIDEgMCAwIDI2IDEzIDEzIDAgMCAwIDAtMjZtMCAyNGExMSAxMSAwIDEgMSAwLTIyIDExIDExIDAgMCAxIDAgMjIiLz48cGF0aCBmaWxsPSIjZDlkOWQ5IiBkPSJtMTAuOTU1IDE2LjA1NS0zLjk1LTQuMTI1LTEuNDQ1IDEuMzg1IDUuMzcgNS42MSA5LjQ5NS05LjYtMS40Mi0xLjQwNXoiLz48L3N2Zz4")
+            }
+
+            body #challenge-error-text {
+                background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0ibm9uZSI+PHBhdGggZmlsbD0iI0IyMEYwMyIgZD0iTTE2IDNhMTMgMTMgMCAxIDAgMTMgMTNBMTMuMDE1IDEzLjAxNSAwIDAgMCAxNiAzbTAgMjRhMTEgMTEgMCAxIDEgMTEtMTEgMTEuMDEgMTEuMDEgMCAwIDEtMTEgMTEiLz48cGF0aCBmaWxsPSIjQjIwRjAzIiBkPSJNMTcuMDM4IDE4LjYxNUgxNC44N0wxNC41NjMgOS41aDIuNzgzem0tMS4wODQgMS40MjdxLjY2IDAgMS4wNTcuMzg4LjQwNy4zODkuNDA3Ljk5NCAwIC41OTYtLjQwNy45ODQtLjM5Ny4zOS0xLjA1Ny4zODktLjY1IDAtMS4wNTYtLjM4OS0uMzk4LS4zODktLjM5OC0uOTg0IDAtLjU5Ny4zOTgtLjk4NS40MDYtLjM5NyAxLjA1Ni0uMzk3Ii8+PC9zdmc+")
+            }
+        }
+    </style>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/g/e9c9e9d67513/api.js?onload=nleNK4&amp;render=explicit"
+        async="" defer="" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="main-wrapper" role="main">
+        <div class="main-content">
+            <h1 class="zone-name-title h1"><img src="/favicon.ico" class="heading-favicon"
+                    alt="Icon for booktoki468.com">booktoki468.com</h1>
+            <p id="Truv1" class="h2" style="display: none; visibility: hidden;">Verifying you are human. This may take a
+                few seconds.</p>
+            <div id="uMtSJ0"></div>
+            <div id="bBCk7" class="spacer loading-verifying" style="display: none; visibility: hidden;">
+                <div class="lds-ring">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+            <div id="OkOq1" class="core-msg spacer" style="display: none; visibility: hidden;">booktoki468.com needs to
+                review the security of your connection before proceeding.</div>
+            <div class="core-msg spacer font-red">
+                <div id="challenge-error-title">
+                    <div class="h2"><span id="challenge-error-text">Please unblock challenges.cloudflare.com to
+                            proceed.</span></div>
+                </div>
+            </div>
+            <div id="Zdps1" style="display: none;">
+                <div id="challenge-success-text" class="h2">Verification successful</div>
+                <div class="core-msg spacer">Waiting for booktoki468.com to respond...</div>
+            </div><noscript>
+                <div class="h2"><span id="challenge-error-text">Enable JavaScript and cookies to continue</span></div>
+            </noscript>
+        </div>
+    </div>
+    <script>(function () { window._cf_chl_opt = { cvId: '3', cZone: 'booktoki468.com', cType: 'managed', cRay: '98cda342dc846ad4', cH: 'VayXUoWBgbqbBONdyAAr4wdMxJfQyVAqDvqu5YTBUaQ-1760178161-1.2.1.1-Drh4flGj104kH2zxOG2aHO26u7NvUEZOMwqBmewQ4EYxnDbDcUG6rohc5RO50P96', cUPMDTk: "\/novel\/1793238?stx=%ED%95%99%EC%82%AC%EC%8B%A0%EA%B3%B5&__cf_chl_tk=vfq0AdmioYWld4My5ixCyKLQHKxzzgoirgg7aPx_pNs-1760178161-1.0.1.1-58UN2pGIkRzwwhGoEkNACmXw5bYeEZTVojBEI9eaQDM", cFPWv: 'g', cITimeS: '1760178161', cTplC: 0, cTplV: 5, cTplB: 'cf', fa: "\/novel\/1793238?stx=%ED%95%99%EC%82%AC%EC%8B%A0%EA%B3%B5&__cf_chl_f_tk=vfq0AdmioYWld4My5ixCyKLQHKxzzgoirgg7aPx_pNs-1760178161-1.0.1.1-58UN2pGIkRzwwhGoEkNACmXw5bYeEZTVojBEI9eaQDM", md: 'y7khGqkzW8rjuvjNBA9BdvZkAvHbAUj9yFLCLCPNZoM-1760178161-1.2.1.1-PxfZrA6GNq2tbZeRBBWoVxdn7PnMCHjZ.9vwMNxhJtJgrb0r7QLDCHfpAGTYs5bXWoX89idYXzxeWLbm8_HLC6ulx.ljyMj0UgVM4VWDUPDC7V9AIruR4a4Vm0ixYAb_Li3C6Qp0H.gCJfEJUs0yqxFi3KRczaMta1iDMAn3Gi0t9x1mCJJvm3.RyeeprVIAEjBJzJyiLaCnuWFpD13w0ylRlbAvxpD9TBdK2HyvNGlUnHpr.g108S.Tvs9iW.vtqXJ..8dCudms8j5uX5vHSUBq0WnqbWxCo2tLIFgxpYMOVYWTN4MhCT7GZbSNPzaCuFvivP5oQGw6ltXqHfxQlLukfSCG0yIhgkqO8TsRICKiBoFUeBPvOKJbQOpEXcfy74.4ZpamaLVj5_9GDPLepsXMtMYj7RIe9WkS32vokuVQGFaUtkw27nnVEJQnXBArVWkq3FXmeCQ.MTYYA7HNJtsLizLeMtXoaDFpCfB4Y7D4Q9gmGB6cDd0ENZVLZT5fS9gnCqximEetoeUyeicdMSo5aQhRp7usggRweRTA7Z5k0iQNbG093z9u8R8n.6tRcu6UBA4G7PeX15OEAbUla8rvlTR1BDXSpCWGNMrJQNQA3rqnyJ8qdB3G785.02_qQOn8WpN3TSiMEigAIcT5cYgCrVisx9XAnnenjycBWyIlg0MB.WAEdvV91kXB.hGtcsU38SnjqqRrmi0G8pLxYhkP0I5tr.L0MFjUoB9I5To8g9fwmh6ynXs5Aw3trrdUGisDXxLHofol9r1FifKAidxFEqb_jFBEACuaadjAu0bqcm88ebl7CrEh6biX2PGJ66.ldmY9SAscsre9AkT2XYYIvZQFLJ8MQhS2pV68oLSZ6qHdhnz5baLHkMtCHpoHFwLXuLieG7.TOfgX27zks3tUz6steJ8Wmx0g.I1wiAvj57MGYzXL7IZZbK_IkosiKX0loiUi56tE3Kx6tMXDTGNjuPlCrQxLoWbnM9OpswpuQnIdlC4gepNb02X4NPoJP.fHzPB8iUXAVintO4hR2PBimeyqv6d0Wet8G6qR_Vc8NixjKfGLOz1Oqs0bJd1O1KBpOg57GoXFTV_4yptPwA6NUjTRBGdhjzLJ9brlXIM', mdrd: 'Y77rfGPvJkKU842SkDDsKKG9bSsprImylwSDwMGQU1c-1760178161-1.2.1.1-l2MO_FMZjNw7lOI2ZezNdxro0GK4M8PZX6AH95wuhDf4F3Ga5y.V2dDE0hzft6zam4FcuxX_E57vZkwiPf3XCcDEgAdFD7DFVxkUGoYu24F2j1iFrSGfhWqpovzIm5HVDtnpjYit44bnyQFE4MwVK3dI9BDrOCN.QTwoiHZfheWchpfG.9SqVuzhBBkKdb2rUnHjiH3CuXnpGbstzGT9Dzc8AmKNrhSydReVn6iRo9LFSEbCQBx9zLRVEjHgt0lREoQCNhw0T5K8RH_MtXMliSRa9xU0ConDNJyJXyfU.X.2aeklLBv8AmVdsLkfue3gjkslayC9Jjih57devY8nXpQ8SE0dbzewEC05Up8M4SGebiZbnvC6zQOABMKCnoQVrleyLjf50KciZbz145hKvXCIqu5FGY4bHhJoAMY8DzAzUH.Up4kCxCyqXrBXlI0jF_6AYgkudhx.9WJ3kOBbCaZRLy7HvbH.XAmtMNrj2Oy9BUtOBwOC_0nPpOW8jv6f0E5wzsXKmMN11GwEbUv2MRzsWaD_yPk9VJtaWx5pAU4jOVPvtxRgFpqC4rSPlJuYcQ8WxOFgRDGSqo0AZxXjjfMizJoxCqXxSSDzkXVuX6Ga2C6qVQDn9eAsP1a3SdHhLUuSPeJzrmkpns6baRkqmVE6w_3w1lS8da0qXA.7CEzPfpERtBWjn2XwDBb58MN0ggecTiwr1_mfiaSRrKZwSImxvSTsYZ9JvemPDmSrgzhuz.03Bkfw2GBKgDP0eAAD_kNZGtAjoc5XV_xEjTrc6ODnza2MJ9HiXMcvmqaVe6bQngcX4L7l6OCSFV7N5QN3MfI1SVsyaVXyK19qlHDCzQ4pRfaOhIepkK8s1dScE2r6IlP5FtUpt7M_Ko2KG1NQHGl7DOZUyVnfNdIan1srBmkaBsfcazHDQmKklu05w95jyKiZbIqrg85k8vc4PfSFE.Kr47BLV4a11fQuXN7isZg6cvZKEeFEr243sBYuG8ZHknwNmpUQEgNgCUssIfFsuRaTPBxQYCdXsqVP5Pzan0etLx5MoxfDTVQ5rWI0_dzpdXh3wtoOn5CNsoVNBS6zpAGaL1iiYY7OmBxCMxA09JEmN78U08Ju8TpfJ2ns4Iapw3M6RkuzlsTmvxJLKM9p7a2CY_iX6tpF9L3qNnFEkCcKToWFsrkKBq23pRGoIAjeKy40qoeLjNSr7i63vSram.4Ussq_5W59flgdmsEHZvbgD8MeoHdFIIeev5zVn4gE_jEUKPWayoJWRuCU2pKln3mr1xR1oIMqSEG0dSl_ymkvFkrZ92huWdvIV195OCkoCtDEcQ_m6bbZOQvEN9EuQiA1ZWRvN0m_jeSJkMj3FUMiAtaXZOVB2vYqPVs.zNBRqlx3f5qnRHzVqpQqHQaMu9vxYGNmNVVCc.3cj0PDXHcHyFmXxV4poB6Tfzlal8FjXubj95MYN.pnTJHphj3JQmsXPc28fpyzw4V0vuTtnMucGATmkVK13R8av6xFxyyjSGrulsg2tRTpzEuFM1G3DoSbKD1psLr0mzH2GBJFhB_nVIAYYPnhM1ZEPtMIkI8AxqShIUxUOGL6YyRV.5ntTFgkYqgbzxlKAt19c6GSEaV1mRYHtzKUyp9GrO4YOlBMktvNtvvOjag14ty8WOXaH.0Rm1g5aqiiWICTpTXVPvGAtg1__98GetIAdyXNWCM8853rEUsZ._HXKbuAH_njSIhlacNTxEecT0LMGSJk9uzhRMm3r9CEXh7Gwdnh3kYsgIr6c4pY3mhmrWYPPgF6RPQfcr7gs7N.gaW_SMZ1obSKPv_L__xcin0YItKrwsQWg4c1XET1Zc5DMrbN5SNfH_KNaPW2KUCjnrfZ8stOqkIBovzLEEERNckD.4eHXr94Dvn9FuK4L3vLK4eX23t8KdliG9nXZlbYhaRphfYoj.nbvufg1KRa83ZrgoKC5Iezd4z8i1ovIfP1XK3Htrqn', }; var a = document.createElement('script'); a.src = '/cdn-cgi/challenge-platform/h/g/orchestrate/chl_page/v1?ray=98cda342dc846ad4'; window._cf_chl_opt.cOgUHash = location.hash === '' && location.href.indexOf('#') !== -1 ? '#' : location.hash; window._cf_chl_opt.cOgUQuery = location.search === '' && location.href.slice(0, location.href.length - window._cf_chl_opt.cOgUHash.length).indexOf('?') !== -1 ? '?' : location.search; if (window.history && window.history.replaceState) { var ogU = location.pathname + window._cf_chl_opt.cOgUQuery + window._cf_chl_opt.cOgUHash; history.replaceState(null, null, "\/novel\/1793238?stx=%ED%95%99%EC%82%AC%EC%8B%A0%EA%B3%B5&__cf_chl_rt_tk=vfq0AdmioYWld4My5ixCyKLQHKxzzgoirgg7aPx_pNs-1760178161-1.0.1.1-58UN2pGIkRzwwhGoEkNACmXw5bYeEZTVojBEI9eaQDM" + window._cf_chl_opt.cOgUHash); a.onload = function () { history.replaceState(null, null, ogU); } } document.getElementsByTagName('head')[0].appendChild(a); }());</script>
+    <script defer=""
+        src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015"
+        integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ=="
+        data-cf-beacon="{&quot;rayId&quot;:&quot;98cda342dc846ad4&quot;,&quot;version&quot;:&quot;2025.9.1&quot;,&quot;r&quot;:1,&quot;serverTiming&quot;:{&quot;name&quot;:{&quot;cfExtPri&quot;:true,&quot;cfEdge&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfL4&quot;:true,&quot;cfSpeedBrain&quot;:true,&quot;cfCacheStatus&quot;:true}},&quot;token&quot;:&quot;dca5499d171148f7ad957055ccb116d1&quot;,&quot;b&quot;:1}"
+        crossorigin="anonymous"></script>
+    <div class="footer" role="contentinfo">
+        <div class="footer-inner">
+            <div class="clearfix diagnostic-wrapper">
+                <div class="ray-id">Ray ID: <code>98cda342dc846ad4</code></div>
+            </div>
+            <div class="text-center" id="footer-text">Performance &amp; security by <a rel="noopener noreferrer"
+                    href="https://www.cloudflare.com?utm_source=challenge&amp;utm_campaign=m"
+                    target="_blank">Cloudflare</a></div>
+        </div>
+    </div>
+</body>
+
+</html>
+❯ node index.js
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+
+<head>
+    <title>Just a moment...</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="robots" content="noindex,nofollow">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        html {
+            line-height: 1.15;
+            -webkit-text-size-adjust: 100%;
+            color: #313131;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            min-height: 100vh
+        }
+
+        .main-content {
+            margin: 8rem auto;
+            padding-left: 1.5rem;
+            max-width: 60rem
+        }
+
+        @media (width <=720px) {
+            .main-content {
+                margin-top: 4rem
+            }
+        }
+
+        .h2 {
+            line-height: 2.25rem;
+            font-size: 1.5rem;
+            font-weight: 500
+        }
+
+        @media (width <=720px) {
+            .h2 {
+                line-height: 1.5rem;
+                font-size: 1.25rem
+            }
+        }
+
+        #challenge-error-text {
+            background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0ibm9uZSI+PHBhdGggZmlsbD0iI0IyMEYwMyIgZD0iTTE2IDNhMTMgMTMgMCAxIDAgMTMgMTNBMTMuMDE1IDEzLjAxNSAwIDAgMCAxNiAzbTAgMjRhMTEgMTEgMCAxIDEgMTEtMTEgMTEuMDEgMTEuMDEgMCAwIDEtMTEgMTEiLz48cGF0aCBmaWxsPSIjQjIwRjAzIiBkPSJNMTcuMDM4IDE4LjYxNUgxNC44N0wxNC41NjMgOS41aDIuNzgzem0tMS4wODQgMS40MjdxLjY2IDAgMS4wNTcuMzg4LjQwNy4zODkuNDA3Ljk5NCAwIC41OTYtLjQwNy45ODQtLjM5Ny4zOS0xLjA1Ny4zODktLjY1IDAtMS4wNTYtLjM4OS0uMzk4LS4zODktLjM5OC0uOTg0IDAtLjU5Ny4zOTgtLjk4NS40MDYtLjM5NyAxLjA1Ni0uMzk3Ii8+PC9zdmc+");
+            background-repeat: no-repeat;
+            background-size: contain;
+            padding-left: 34px
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #222;
+                color: #d9d9d9
+            }
+        }
+    </style>
+    <meta http-equiv="refresh" content="360">
+    <script src="/cdn-cgi/challenge-platform/h/g/orchestrate/chl_page/v1?ray=98cda807dc512113"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        html {
+            line-height: 1.15;
+            -webkit-text-size-adjust: 100%;
+            color: #313131;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"
+        }
+
+        button {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            min-height: 100vh
+        }
+
+        body.theme-dark {
+            background-color: #222;
+            color: #d9d9d9
+        }
+
+        body.theme-dark a {
+            color: #fff
+        }
+
+        body.theme-dark a:hover {
+            text-decoration: underline;
+            color: #ee730a
+        }
+
+        body.theme-dark .lds-ring div {
+            border-color: #999 rgba(0, 0, 0, 0) rgba(0, 0, 0, 0)
+        }
+
+        body.theme-dark .font-red {
+            color: #b20f03
+        }
+
+        body.theme-dark .ctp-button {
+            background-color: #4693ff;
+            color: #1d1d1d
+        }
+
+        body.theme-dark #challenge-success-text {
+            background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0ibm9uZSIgdmlld0JveD0iMCAwIDI2IDI2Ij48cGF0aCBmaWxsPSIjZDlkOWQ5IiBkPSJNMTMgMGExMyAxMyAwIDEgMCAwIDI2IDEzIDEzIDAgMCAwIDAtMjZtMCAyNGExMSAxMSAwIDEgMSAwLTIyIDExIDExIDAgMCAxIDAgMjIiLz48cGF0aCBmaWxsPSIjZDlkOWQ5IiBkPSJtMTAuOTU1IDE2LjA1NS0zLjk1LTQuMTI1LTEuNDQ1IDEuMzg1IDUuMzcgNS42MSA5LjQ5NS05LjYtMS40Mi0xLjQwNXoiLz48L3N2Zz4")
+        }
+
+        body.theme-dark #challenge-error-text {
+            background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0ibm9uZSI+PHBhdGggZmlsbD0iI0IyMEYwMyIgZD0iTTE2IDNhMTMgMTMgMCAxIDAgMTMgMTNBMTMuMDE1IDEzLjAxNSAwIDAgMCAxNiAzbTAgMjRhMTEgMTEgMCAxIDEgMTEtMTEgMTEuMDEgMTEuMDEgMCAwIDEtMTEgMTEiLz48cGF0aCBmaWxsPSIjQjIwRjAzIiBkPSJNMTcuMDM4IDE4LjYxNUgxNC44N0wxNC41NjMgOS41aDIuNzgzem0tMS4wODQgMS40MjdxLjY2IDAgMS4wNTcuMzg4LjQwNy4zODkuNDA3Ljk5NCAwIC41OTYtLjQwNy45ODQtLjM5Ny4zOS0xLjA1Ny4zODktLjY1IDAtMS4wNTYtLjM4OS0uMzk4LS4zODktLjM5OC0uOTg0IDAtLjU5Ny4zOTgtLjk4NS40MDYtLjM5NyAxLjA1Ni0uMzk3Ii8+PC9zdmc+")
+        }
+
+        body.theme-light {
+            background-color: #fff;
+            color: #313131
+        }
+
+        body.theme-light a {
+            color: #0051c3
+        }
+
+        body.theme-light a:hover {
+            text-decoration: underline;
+            color: #ee730a
+        }
+
+        body.theme-light .lds-ring div {
+            border-color: #595959 rgba(0, 0, 0, 0) rgba(0, 0, 0, 0)
+        }
+
+        body.theme-light .font-red {
+            color: #fc574a
+        }
+
+        body.theme-light .ctp-button {
+            border-color: #003681;
+            background-color: #003681;
+            color: #fff
+        }
+
+        body.theme-light #challenge-success-text {
+            background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0ibm9uZSIgdmlld0JveD0iMCAwIDI2IDI2Ij48cGF0aCBmaWxsPSIjMzEzMTMxIiBkPSJNMTMgMGExMyAxMyAwIDEgMCAwIDI2IDEzIDEzIDAgMCAwIDAtMjZtMCAyNGExMSAxMSAwIDEgMSAwLTIyIDExIDExIDAgMCAxIDAgMjIiLz48cGF0aCBmaWxsPSIjMzEzMTMxIiBkPSJtMTAuOTU1IDE2LjA1NS0zLjk1LTQuMTI1LTEuNDQ1IDEuMzg1IDUuMzcgNS42MSA5LjQ5NS05LjYtMS40Mi0xLjQwNXoiLz48L3N2Zz4=")
+        }
+
+        body.theme-light #challenge-error-text {
+            background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0ibm9uZSI+PHBhdGggZmlsbD0iI2ZjNTc0YSIgZD0iTTE2IDNhMTMgMTMgMCAxIDAgMTMgMTNBMTMuMDE1IDEzLjAxNSAwIDAgMCAxNiAzbTAgMjRhMTEgMTEgMCAxIDEgMTEtMTEgMTEuMDEgMTEuMDEgMCAwIDEtMTEgMTEiLz48cGF0aCBmaWxsPSIjZmM1NzRhIiBkPSJNMTcuMDM4IDE4LjYxNUgxNC44N0wxNC41NjMgOS41aDIuNzgzem0tMS4wODQgMS40MjdxLjY2IDAgMS4wNTcuMzg4LjQwNy4zODkuNDA3Ljk5NCAwIC41OTYtLjQwNy45ODQtLjM5Ny4zOS0xLjA1Ny4zODktLjY1IDAtMS4wNTYtLjM4OS0uMzk4LS4zODktLjM5OC0uOTg0IDAtLjU5Ny4zOTgtLjk4NS40MDYtLjM5NyAxLjA1Ni0uMzk3Ii8+PC9zdmc+")
+        }
+
+        a {
+            transition: color 150ms ease;
+            background-color: rgba(0, 0, 0, 0);
+            text-decoration: none;
+            color: #0051c3
+        }
+
+        a:hover {
+            text-decoration: underline;
+            color: #ee730a
+        }
+
+        .main-content {
+            margin: 8rem auto;
+            padding-right: 1.5rem;
+            padding-left: 1.5rem;
+            width: 100%;
+            max-width: 60rem
+        }
+
+        .main-content .loading-verifying {
+            height: 76.391px
+        }
+
+        .spacer {
+            margin: 2rem 0
+        }
+
+        .spacer-top {
+            margin-top: 4rem
+        }
+
+        .spacer-bottom {
+            margin-bottom: 2rem
+        }
+
+        .heading-favicon {
+            margin-right: .5rem;
+            width: 2rem;
+            height: 2rem
+        }
+
+        @media (width <=720px) {
+            .main-content {
+                margin-top: 4rem
+            }
+
+            .heading-favicon {
+                width: 1.5rem;
+                height: 1.5rem
+            }
+        }
+
+        .main-wrapper {
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+            align-items: center
+        }
+
+        .font-red {
+            color: #b20f03
+        }
+
+        .h1 {
+            line-height: 3.75rem;
+            font-size: 2.5rem;
+            font-weight: 500
+        }
+
+        .h2 {
+            line-height: 2.25rem;
+            font-size: 1.5rem;
+            font-weight: 500
+        }
+
+        .core-msg {
+            line-height: 2.25rem;
+            font-size: 1.5rem;
+            font-weight: 400
+        }
+
+        .body-text {
+            line-height: 1.25rem;
+            font-size: 1rem;
+            font-weight: 400
+        }
+
+        @media (width <=720px) {
+            .h1 {
+                line-height: 1.75rem;
+                font-size: 1.5rem
+            }
+
+            .h2 {
+                line-height: 1.5rem;
+                font-size: 1.25rem
+            }
+
+            .core-msg {
+                line-height: 1.5rem;
+                font-size: 1rem
+            }
+        }
+
+        #challenge-error-text {
+            background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0ibm9uZSI+PHBhdGggZmlsbD0iI2ZjNTc0YSIgZD0iTTE2IDNhMTMgMTMgMCAxIDAgMTMgMTNBMTMuMDE1IDEzLjAxNSAwIDAgMCAxNiAzbTAgMjRhMTEgMTEgMCAxIDEgMTEtMTEgMTEuMDEgMTEuMDEgMCAwIDEtMTEgMTEiLz48cGF0aCBmaWxsPSIjZmM1NzRhIiBkPSJNMTcuMDM4IDE4LjYxNUgxNC44N0wxNC41NjMgOS41aDIuNzgzem0tMS4wODQgMS40MjdxLjY2IDAgMS4wNTcuMzg4LjQwNy4zODkuNDA3Ljk5NCAwIC41OTYtLjQwNy45ODQtLjM5Ny4zOS0xLjA1Ny4zODktLjY1IDAtMS4wNTYtLjM4OS0uMzk4LS4zODktLjM5OC0uOTg0IDAtLjU5Ny4zOTgtLjk4NS40MDYtLjM5NyAxLjA1Ni0uMzk3Ii8+PC9zdmc+");
+            background-repeat: no-repeat;
+            background-size: contain;
+            padding-left: 34px
+        }
+
+        #challenge-success-text {
+            background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0ibm9uZSIgdmlld0JveD0iMCAwIDI2IDI2Ij48cGF0aCBmaWxsPSIjMzEzMTMxIiBkPSJNMTMgMGExMyAxMyAwIDEgMCAwIDI2IDEzIDEzIDAgMCAwIDAtMjZtMCAyNGExMSAxMSAwIDEgMSAwLTIyIDExIDExIDAgMCAxIDAgMjIiLz48cGF0aCBmaWxsPSIjMzEzMTMxIiBkPSJtMTAuOTU1IDE2LjA1NS0zLjk1LTQuMTI1LTEuNDQ1IDEuMzg1IDUuMzcgNS42MSA5LjQ5NS05LjYtMS40Mi0xLjQwNXoiLz48L3N2Zz4=");
+            background-repeat: no-repeat;
+            background-size: contain;
+            padding-left: 42px
+        }
+
+        .text-center {
+            text-align: center
+        }
+
+        .ctp-button {
+            transition-duration: 200ms;
+            transition-property: background-color, border-color, color;
+            transition-timing-function: ease;
+            margin: 2rem 0;
+            border: .063rem solid #0051c3;
+            border-radius: .313rem;
+            background-color: #0051c3;
+            cursor: pointer;
+            padding: .375rem 1rem;
+            line-height: 1.313rem;
+            color: #fff;
+            font-size: .875rem
+        }
+
+        .ctp-button:hover {
+            border-color: #003681;
+            background-color: #003681;
+            cursor: pointer;
+            color: #fff
+        }
+
+        .footer {
+            margin: 0 auto;
+            padding-right: 1.5rem;
+            padding-left: 1.5rem;
+            width: 100%;
+            max-width: 60rem;
+            line-height: 1.125rem;
+            font-size: .75rem
+        }
+
+        .footer-inner {
+            border-top: 1px solid #d9d9d9;
+            padding-top: 1rem;
+            padding-bottom: 1rem
+        }
+
+        .clearfix::after {
+            display: table;
+            clear: both;
+            content: ""
+        }
+
+        .clearfix .column {
+            float: left;
+            padding-right: 1.5rem;
+            width: 50%
+        }
+
+        .diagnostic-wrapper {
+            margin-bottom: .5rem
+        }
+
+        .footer .ray-id {
+            text-align: center
+        }
+
+        .footer .ray-id code {
+            font-family: monaco, courier, monospace
+        }
+
+        .core-msg,
+        .zone-name-title {
+            overflow-wrap: break-word
+        }
+
+        @media (width <=720px) {
+            .diagnostic-wrapper {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center
+            }
+
+            .clearfix::after {
+                display: initial;
+                clear: none;
+                text-align: center;
+                content: none
+            }
+
+            .column {
+                padding-bottom: 2rem
+            }
+
+            .clearfix .column {
+                float: none;
+                padding: 0;
+                width: auto;
+                word-break: keep-all
+            }
+
+            .zone-name-title {
+                margin-bottom: 1rem
+            }
+        }
+
+        .loading-verifying {
+            height: 76.391px
+        }
+
+        .lds-ring {
+            display: inline-block;
+            position: relative;
+            width: 1.875rem;
+            height: 1.875rem
+        }
+
+        .lds-ring div {
+            box-sizing: border-box;
+            display: block;
+            position: absolute;
+            border: .3rem solid #595959;
+            border-radius: 50%;
+            border-color: #313131 rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
+            width: 1.875rem;
+            height: 1.875rem;
+            animation: lds-ring 1.2s cubic-bezier(.5, 0, .5, 1) infinite
+        }
+
+        .lds-ring div:nth-child(1) {
+            animation-delay: -.45s
+        }
+
+        .lds-ring div:nth-child(2) {
+            animation-delay: -.3s
+        }
+
+        .lds-ring div:nth-child(3) {
+            animation-delay: -.15s
+        }
+
+        @keyframes lds-ring {
+            0% {
+                transform: rotate(0deg)
+            }
+
+            100% {
+                transform: rotate(360deg)
+            }
+        }
+
+        .rtl .heading-favicon {
+            margin-right: 0;
+            margin-left: .5rem
+        }
+
+        .rtl #challenge-success-text {
+            background-position: right;
+            padding-right: 42px;
+            padding-left: 0
+        }
+
+        .rtl #challenge-error-text {
+            background-position: right;
+            padding-right: 34px;
+            padding-left: 0
+        }
+
+        .challenge-content .loading-verifying {
+            height: 76.391px
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #222;
+                color: #d9d9d9
+            }
+
+            body a {
+                color: #fff
+            }
+
+            body a:hover {
+                text-decoration: underline;
+                color: #ee730a
+            }
+
+            body .lds-ring div {
+                border-color: #999 rgba(0, 0, 0, 0) rgba(0, 0, 0, 0)
+            }
+
+            body .font-red {
+                color: #b20f03
+            }
+
+            body .ctp-button {
+                background-color: #4693ff;
+                color: #1d1d1d
+            }
+
+            body #challenge-success-text {
+                background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0ibm9uZSIgdmlld0JveD0iMCAwIDI2IDI2Ij48cGF0aCBmaWxsPSIjZDlkOWQ5IiBkPSJNMTMgMGExMyAxMyAwIDEgMCAwIDI2IDEzIDEzIDAgMCAwIDAtMjZtMCAyNGExMSAxMSAwIDEgMSAwLTIyIDExIDExIDAgMCAxIDAgMjIiLz48cGF0aCBmaWxsPSIjZDlkOWQ5IiBkPSJtMTAuOTU1IDE2LjA1NS0zLjk1LTQuMTI1LTEuNDQ1IDEuMzg1IDUuMzcgNS42MSA5LjQ5NS05LjYtMS40Mi0xLjQwNXoiLz48L3N2Zz4")
+            }
+
+            body #challenge-error-text {
+                background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0ibm9uZSI+PHBhdGggZmlsbD0iI0IyMEYwMyIgZD0iTTE2IDNhMTMgMTMgMCAxIDAgMTMgMTNBMTMuMDE1IDEzLjAxNSAwIDAgMCAxNiAzbTAgMjRhMTEgMTEgMCAxIDEgMTEtMTEgMTEuMDEgMTEuMDEgMCAwIDEtMTEgMTEiLz48cGF0aCBmaWxsPSIjQjIwRjAzIiBkPSJNMTcuMDM4IDE4LjYxNUgxNC44N0wxNC41NjMgOS41aDIuNzgzem0tMS4wODQgMS40MjdxLjY2IDAgMS4wNTcuMzg4LjQwNy4zODkuNDA3Ljk5NCAwIC41OTYtLjQwNy45ODQtLjM5Ny4zOS0xLjA1Ny4zODktLjY1IDAtMS4wNTYtLjM4OS0uMzk4LS4zODktLjM5OC0uOTg0IDAtLjU5Ny4zOTgtLjk4NS40MDYtLjM5NyAxLjA1Ni0uMzk3Ii8+PC9zdmc+")
+            }
+        }
+    </style>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/g/e9c9e9d67513/api.js?onload=nleNK4&amp;render=explicit"
+        async="" defer="" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="main-wrapper" role="main">
+        <div class="main-content">
+            <h1 class="zone-name-title h1"><img src="/favicon.ico" class="heading-favicon"
+                    alt="Icon for booktoki468.com">booktoki468.com</h1>
+            <p id="Truv1" class="h2" style="display: none; visibility: hidden;">Verifying you are human. This may take a
+                few seconds.</p>
+            <div id="uMtSJ0"></div>
+            <div id="bBCk7" class="spacer loading-verifying" style="display: none; visibility: hidden;">
+                <div class="lds-ring">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+            <div id="OkOq1" class="core-msg spacer" style="display: none; visibility: hidden;">booktoki468.com needs to
+                review the security of your connection before proceeding.</div>
+            <div class="core-msg spacer font-red">
+                <div id="challenge-error-title">
+                    <div class="h2"><span id="challenge-error-text">Please unblock challenges.cloudflare.com to
+                            proceed.</span></div>
+                </div>
+            </div>
+            <div id="Zdps1" style="display: none;">
+                <div id="challenge-success-text" class="h2">Verification successful</div>
+                <div class="core-msg spacer">Waiting for booktoki468.com to respond...</div>
+            </div><noscript>
+                <div class="h2"><span id="challenge-error-text">Enable JavaScript and cookies to continue</span></div>
+            </noscript>
+        </div>
+    </div>
+    <script>(function () { window._cf_chl_opt = { cvId: '3', cZone: 'booktoki468.com', cType: 'managed', cRay: '98cda807dc512113', cH: 'Alo5JXAZ_TCq5BGeDsw.5v28lDtBbvAXcxaENnyq1c0-1760178356-1.2.1.1-Nqui68ygVWNBWwpARuWw4ZcJQnY5S3P06mZbzobjdl4p4q.5Pl5okbh2kjFft.Au', cUPMDTk: "\/novel\/1793238?stx=%ED%95%99%EC%82%AC%EC%8B%A0%EA%B3%B5&sst=as_update&sod=desc&__cf_chl_tk=xX7UobeW7RMJPyQulTr.w8H1w5KYHBnyka58vow9Hz8-1760178356-1.0.1.1-4wVlaMto7fCZ8kzFsTfDhH69G3ljiFSO1PUlPWHQQDI", cFPWv: 'g', cITimeS: '1760178356', cTplC: 0, cTplV: 5, cTplB: 'cf', fa: "\/novel\/1793238?stx=%ED%95%99%EC%82%AC%EC%8B%A0%EA%B3%B5&sst=as_update&sod=desc&__cf_chl_f_tk=xX7UobeW7RMJPyQulTr.w8H1w5KYHBnyka58vow9Hz8-1760178356-1.0.1.1-4wVlaMto7fCZ8kzFsTfDhH69G3ljiFSO1PUlPWHQQDI", md: '48bXE75U_eAuG7d8xYMVMSmPD3bAQpIeK1uy6gMOuZg-1760178356-1.2.1.1-3PsksBqdF12NSg7Xba9ecdIiJjyYAZ9nxPnQoor0AKctV49osfqpRrLsOn6ZKUpF1xPE0lIllwluD.ReLqCLKabHssqPoN9.Y7KEQen3GVzye9OkV8X7HVsBkfR4rKCNxRSv1fGHpt9OooiwwaB9UUniOh5FBgmnDRdmvwME932naOQTZIaVsc8y3AmsOhsaOqHcomvdlmcI3OcjO9t2qH2upLd4exJTC_OKVB6sukt3KZuo2vyy1CGsfJjgLp3Z09AfQ1pfNB.G99z9iXcJxIYPqjlv3OcOldBjKrdPfST3rM8GjJlU7V91lmTxdxFdxmngOOyFjePqoWX05Pv77d5cT3Vro4CGDUEjjsxIwTlQaOZFGh5dltu.Ru94RXz0TohFy2rDPi7ROR_g38sp5yMlQOFI.nHj7NnUhVfk18Ya153p3kycTdXw2ziF9uAoBCTIMlMNv8g2Uu6YX.kICjEkZYvZjKP4boBH_rrZZ8IqzFvLuFwGAOSSjYj4BNqd31CGBbzsP3hzEFsn1rntooMDuypfeCpM4phD_gj.eHJ52OJJkHe8Xjso4KJe8n4Jxdh4tvpsC6U.mOu6il4fWrx_b2eBra8TwKiccGUMN99KkviWHcpyK84j4qUSbcefGTJr_NwhzZDYzgZMLr6xaCs09WaSbAOLXFrbRt2t8PuxBqrSlP85FEqE37vIos.ea1X0hwMrp8.n7mCYwLzntHOnDW9sy.kUKoYzey8RdLBHP4ilXZpirAHN038tYC6qG1dcQN_6lMwWX598MNa9ux5PGpODmWL77iU5FLEAvOtLVuGoDJr22lRxlHRfFnW_28pQ4Pfd6Y4nBsBfpIadFfDUBq9DBoQuwNI6t1Wb4vX6.kmCX5ul4tWsrQhTuG5XpTl_UpZVsuEKfP2k6cFDcZ9Z4eTE5TegcuaoKXy3cxp1_it2X2JGcgNTwXBTrs1iPQiYafDTbJ9OHp4qO9HuHEtNHIx07r9yk1TbtX3XSFeOVVgKoQiFuURw.nImEzkLWU6f36WtTYCtf778X6_ogTIgqKIK3fsSksFoJ1FpxPgVHkw5sNTHoV6mKekfX4oQAcKY52V1Kg76MoVJGjLheBCHIUPucDYyOsARJ2rUdC4UUgoQklEAMPsDBDzx0pX_bO.Mjd7mlWJ16KISg1RcTw', mdrd: 'gwA2EP2rlTsArkQDcZEpF_0VFGLDRMe5Z3Ld9PNxPME-1760178356-1.2.1.1-FBetbimcq4E2V2yBb7yiUEPB70O6SvjI5ZWKVSNUYImpJO7PZ5TVPD5qqcoq_WkLWm7EeqoH0LUCSWD70o3FbFW9lODEPQbY6m3MgQzPCGa98TQQOrsN3EYtOzIzp_dv2k70fvn4K5tGq2Qhg9rTr6FvY8eVGrwga9PqK7ykxttKcyOU9yA4u9.0i6kDTE2IEJ.anYVmbI3F0zCXS2AAegHSym0BN73QtBr3yGMcTzM_Qhrud4KaxWzdfRMRu1P8hw51phM3LriEiqW2LOVKh34IPauIqCG.dwPx0kKOcAr6VxMNOfGudz1KTEo2WDDLuMc.hY1CE2uYICtYKPwbNq0a3vVVB9uI3Qa1i7afRQZo83xcV07mRKZkPiajG68n6gZdn7DLNnc6CYGJdFBvOTHp6RlCGL45IjReoAlXflZVCmwXBGUiKR.LZ5_sg8YNHBSgEk2T_xwL0IJBuHA6lq29wXEroGFsy3ybXTJUgIhpCTvhfa1wubHEt.Fhb5tcJl1etUo4dIO8URRQx.ZJeS8o2dI7IYi_4pfKnXUJjlMrJBF8Mt.JjozJNpjk8rJqsQi80Pi5lTzoqo2xK9oPcWYS22MEeMo9g3bc1IZiLgy5rURT13sLpT7TQoLj5GCosDCMEEtqIu6Cc1YZ2VIsyDnwXzTWrPlH5tUIhI6YOQjRWogrCEe0qqd0Tm8SI5DRoazBLwJJsdGXGbGUaXcDXDt3onGjxhIt4yXueBrcIbf.oYvFzfKo59MbAz9LoKDpO_UcTx5PlTlWv5S23mu3DPBx7RYyr0MrrLSowFvFa5YRqF7dajzDH43jdEq1gVyRJulSGLl04ap4wcuFRFtBGqGF4hnUqoXIfTUS2xgP1O008zUkXkHFFT2NX003tRjXGAeoZ5B4SFhc_z196CXNLDZYrb0GGsPLbODedFu0ACgUMdNCfv.bDxRpbVbFa61mxz1c8ETdcSI3GVWFpwVEpDvBI.A26PmNMyTbLyvG.zsYMxMxGlI8.Y6ldb0DtpOy3T.nkF4YfTAxxRRFPM84bm542mV3zNA41Dw8v3KeAc7SCqhKLH_7q2ZPhwJ1x2ZVzakklhBCT8TQOLSrNeE0aII_3lIr1_YPgdyKxtX1Dmku6QjpEs_BHsxyt9SqPu9IhHV0xKdt7U5lCTtX3CQj_I3AI1daHEAKXxc21fbeOaVdcKL9a7nqwZ70VbylY5VoviTX53e1p2TodSKqQjwkDrdkeEA8QVtTPJBtHev__fVPnU7uh1HcxVz2GH1oMtyyIDyantnWFKt23voOsMJb3VJdk4O7q15DUWSK1UlwyWM.I58d21cz2bXCE0iEAnMYHtxBvGN5tbStdMsrjLXhzZu4Wp0szkUjDlKOeGFPLp68eqZJfbOsSa_fXs5CQum8NAgeP2ZtFWWngQCm6cmj0Q5.s.4FlZr77yB.56aoqPYRIayXSHTpwB.6lW6V1BMLJC3AKcXf0PwEKTdlBddksk5NdH15XGmLm0ZDP9qLUDjA3GhaiPEdXIWWhNpO2yxt5J_QcXo_C0IQljiP8oBhaIyCr2AuLMzBtLZR5Zx77DmCJ44kkgNdSDgGgU1RvZO2EUCJFPPH5IA0_YY59Y7V2DqFnokA1hmvV6YYOcqdK4zGZurQ6M771o62VJgUHZtaEGyV_aHWfN9YXIs232fzaYW7Bynq5gBoJBga3BJBGF14Rjxq8.57QaNCsBjhv5gMmnbTuRKWk4tT5ZrJWbde.z0V1kgM.42sSWfDCvk90IgHaMvpB_7mZUgoxObDbk4iuq3uaw_77f9P6dSd5mQeVH25OT9FujZ3eMG2y6UPVRwr5Q8Cj6siWcCIxyXt89ZJLQZr6TpEo08hdQeWIFeCyFlz9LnJGek5i0ymjC0bvObiXvOX6W8RQAKTaoTlzYuyY5ad2Ev1qglpzawWv7UMQwDxTpLqQF72NVBDfJEKmWUzcDzI6XVYwpT1YEocx2suEv2I9YKmPDc4D4UQamVNDyrGB8aRmlsCtg2T9OVByiM2yCPKixaLFlgeI.D5oj1fX.DzKSLxVThCbXY1X.hepOwad8bP7OlLXg1lS9wofCy4GpP6_sRyzL9IesqokR8dCzPaTjhl0q_RWi0p2SAbIWjhv4Hh_abhyki0SXD9wnm6GnLDLJRey7DCFJOwlsdYzZDr_NTGmPlyx1eqd0NL787xygHJ_.sR_Q689LW_aEkyIrCT94XmJYk8UOjvCYWQfcrjRGZSB9caQZ9gA7Ch7Zqsx6Dgr9CvEgMBqJqmKd1Gl3QFB.auBKufuwaa92BKvTM7xpzL_a86jw0wGtzqzBa3h6AfQHGmqfTdCPxwh1zZRj4bfXgEnkpz1JJ1TVuagkLoegeWRx6gTzhPZRWOYdVxkEQ9vJmN4B5PYkNlSO5CqBlsO5Dvnb0ndygm2nHEDrnsNHNvbbvTn2oXBbAtCg', }; var a = document.createElement('script'); a.src = '/cdn-cgi/challenge-platform/h/g/orchestrate/chl_page/v1?ray=98cda807dc512113'; window._cf_chl_opt.cOgUHash = location.hash === '' && location.href.indexOf('#') !== -1 ? '#' : location.hash; window._cf_chl_opt.cOgUQuery = location.search === '' && location.href.slice(0, location.href.length - window._cf_chl_opt.cOgUHash.length).indexOf('?') !== -1 ? '?' : location.search; if (window.history && window.history.replaceState) { var ogU = location.pathname + window._cf_chl_opt.cOgUQuery + window._cf_chl_opt.cOgUHash; history.replaceState(null, null, "\/novel\/1793238?stx=%ED%95%99%EC%82%AC%EC%8B%A0%EA%B3%B5&sst=as_update&sod=desc&__cf_chl_rt_tk=xX7UobeW7RMJPyQulTr.w8H1w5KYHBnyka58vow9Hz8-1760178356-1.0.1.1-4wVlaMto7fCZ8kzFsTfDhH69G3ljiFSO1PUlPWHQQDI" + window._cf_chl_opt.cOgUHash); a.onload = function () { history.replaceState(null, null, ogU); } } document.getElementsByTagName('head')[0].appendChild(a); }());</script>
+    <script defer=""
+        src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015"
+        integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ=="
+        data-cf-beacon="{&quot;rayId&quot;:&quot;98cda807dc512113&quot;,&quot;version&quot;:&quot;2025.9.1&quot;,&quot;r&quot;:1,&quot;serverTiming&quot;:{&quot;name&quot;:{&quot;cfExtPri&quot;:true,&quot;cfEdge&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfL4&quot;:true,&quot;cfSpeedBrain&quot;:true,&quot;cfCacheStatus&quot;:true}},&quot;token&quot;:&quot;dca5499d171148f7ad957055ccb116d1&quot;,&quot;b&quot;:1}"
+        crossorigin="anonymous"></script>
+    <div class="footer" role="contentinfo">
+        <div class="footer-inner">
+            <div class="clearfix diagnostic-wrapper">
+                <div class="ray-id">Ray ID: <code>98cda807dc512113</code></div>
+            </div>
+            <div class="text-center" id="footer-text">Performance &amp; security by <a rel="noopener noreferrer"
+                    href="https://www.cloudflare.com?utm_source=challenge&amp;utm_campaign=m"
+                    target="_blank">Cloudflare</a></div>
+        </div>
+    </div>
+</body>
+
+</html>
