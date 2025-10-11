@@ -87,31 +87,31 @@ def start_ui():
         PHPSESSID = PHPSESSID_input.get()
         cf_clearance = cf_clearance_input.get()
 
-        max_index = max_index_input.get()
-        current_index = current_index_input.get()
-        
-        start_index = start_index_input.get()
-        if start_index == "":
-            start_index = 0
-        end_index = end_index_input.get()
-        if end_index == "":
-            end_index = 0
-
-        id = 17799638
-
         headers = {
-            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
-            "Accept-Language": "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7,es;q=0.6,ja;q=0.5",
-            "Cookie": f"PHPSESSID={PHPSESSID}; cf_clearance={cf_clearance}",
-            "Referer": "https://booktoki468.com/novel/1793238?sst=as_view&sod=desc&yoil=%EC%99%84%EA%B2%B0&book=%EC%99%84%EA%B2%B0%EC%86%8C%EC%84%A4",
-            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
+            "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+            "accept-encoding": "gzip, deflate, br, zstd",
+            "accept-language": "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7",
+            "cache-control": "no-cache",
+            "cookie": f"HstCfa4678477=1754830390300; HstCmu4678477=1754830390300; c_ref_4678477=https%3A%2F%2Fwww.xn--h10bx0wsvp.org%2F; HstCla4678477=1756733680207; HstPn4678477=1; HstPt4678477=34; HstCnv4678477=3; HstCns4678477=4; PHPSESSID={PHPSESSID}; e1192aefb64683cc97abb83c71057733=bm92ZWw%3D; cf_clearance={cf_clearance}",
+            "pragma": "no-cache",
+            "referer": "https://booktoki468.com/novel?book=&yoil=&jaum=&tag=&sst=as_update&sod=desc&stx=%ED%95%99%EC%82%AC%EC%8B%A0%EA%B3%B5",
+            "sec-ch-ua-arch": "arm",
+            "sec-ch-ua-bitness": "64",
+            "sec-ch-ua-full-version": "140.0.7339.214",
+            "sec-ch-ua": "\"Chromium\";v=\"140\", \"Not=A?Brand\";v=\"24\", \"Google Chrome\";v=\"140\"",
+            "sec-ch-ua-platform": "\"macOS\"",
+            "sec-ch-ua-platform-version": "\"15.6.0\"",
+            "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36"
         }
 
         listHtml = crawler.getListHtml(url=url, headers=headers)
+        if listHtml is None:
+            print("Failed to fetch the list HTML. Please check the URL or headers.")
+            return
+
         chapter_list = crawler.parseList(listHtml)
-        scanRootAfter(chapter_list, headers, int(start_index), int(end_index))
-        
-        # crawler.scanAllChapter(chapter_list, headers, random.randrange(5000, 11000) / 1000)
+        scanRootAfter(chapter_list, headers)
+
 
     # time.sleep 을 쓰면 ui가 멈추므로 root.after를 사용
     def scanRootAfter(chapter_list: list, headers, index: int = 0, end_index: int = 0):
@@ -122,7 +122,7 @@ def start_ui():
             print("All chapter crawling completed 🚀")
             return
         crawler.scanCapter(chapter_list[index], headers)
-        randomTime = random.randrange(2000, 5000)
+        randomTime = random.randrange(4000, 8000)
         print(f"Wait for seconds: {randomTime/1000} | Next Index: {index + 1}")
         if (stop):
             print("Stop!")
