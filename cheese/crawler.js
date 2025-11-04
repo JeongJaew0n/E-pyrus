@@ -104,6 +104,7 @@ function randomDelay() {
 
 // 모든 챕터를 순차적으로 스캔
 async function scanAllChapters(chapterList, headers, novelPath) {
+  // 정방향으로 순회하도록 변경 (main에서 필요하면 배열을 뒤집어 넘김)
   for (const chapter of chapterList) {
     await scanChapter(chapter, headers, novelPath);
     await randomDelay(); // 랜덤 대기 시간 추가

@@ -17,6 +17,23 @@
     <label for="cf_clearance">cf_clearance:</label>
     <input type="text" id="cf_clearance" name="cf_clearance" required>
     <br>
+
+    <!-- 추가: 범위 및 점프 번호 -->
+    <label for="range-start">Range Start (예: 83):</label>
+    <input type="number" id="range-start" name="range-start" placeholder="start number">
+    <br>
+    <label for="range-end">Range End (예: 200):</label>
+    <input type="number" id="range-end" name="range-end" placeholder="end number">
+    <br>
+    <label for="jump-number">Jump To (예: 123):</label>
+    <input type="number" id="jump-number" name="jump-number" placeholder="target number">
+    <br>
+
+    <!-- 디버그 토글 추가 -->
+    <label for="debug-toggle">Debug HTML 출력</label>
+    <input type="checkbox" id="debug-toggle" name="debug-toggle">
+    <br>
+
     <button type="submit">Start Crawling</button>
     <button type="button" id="save-credentials">Save</button>
     <button type="button" id="load-credentials">Load</button>
