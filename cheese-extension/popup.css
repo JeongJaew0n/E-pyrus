@@ -77,6 +77,31 @@ input[type="number"] {
   box-sizing: border-box;
 }
 
+/* ── 체크박스 + 멀티페이지 ── */
+.checkbox-row {
+  margin-bottom: 8px;
+  position: relative;
+}
+
+.checkbox-label {
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.checkbox-label input[type="checkbox"] {
+  margin-right: 4px;
+  vertical-align: middle;
+}
+
+#page-count-wrap {
+  margin-top: 6px;
+  margin-left: 20px;
+}
+
+#page-count-wrap input {
+  width: 80px;
+}
+
 /* ── 도움말 아이콘 + 툴팁 ── */
 .help-icon {
   display: inline-flex;
@@ -114,33 +139,6 @@ input[type="number"] {
   z-index: 100;
   pointer-events: none;
 }
-
-/* ── 폴더 선택 ── */
-.folder-picker {
-  display: flex;
-  gap: 6px;
-  margin-bottom: 8px;
-}
-
-.folder-picker input {
-  flex: 1;
-  margin-bottom: 0;
-  cursor: pointer;
-  background: #fafafa;
-}
-
-#btn-folder {
-  padding: 6px 10px;
-  background: #eee;
-  color: #333;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 12px;
-  cursor: pointer;
-  white-space: nowrap;
-}
-
-#btn-folder:hover { background: #ddd; }
 
 .row {
   display: flex;

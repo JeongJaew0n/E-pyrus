@@ -5,7 +5,7 @@
   // ── 플로팅 버튼 ──
   const btn = document.createElement('div');
   btn.id = 'cheese-crawler-btn';
-  btn.textContent = '🧀';
+  btn.textContent = '📖';
   btn.title = 'Cheese Crawler';
   document.body.appendChild(btn);
 
@@ -16,7 +16,6 @@
   const iframe = document.createElement('iframe');
   const panelUrl = chrome.runtime.getURL('popup.html') + '?url=' + encodeURIComponent(window.location.href);
   iframe.src = panelUrl;
-  iframe.allow = 'file-system-access';
   panel.appendChild(iframe);
   document.body.appendChild(panel);
 

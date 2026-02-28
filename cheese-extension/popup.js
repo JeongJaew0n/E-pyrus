@@ -4,9 +4,10 @@ const btnStart = document.getElementById('btn-start');
 const btnStop = document.getElementById('btn-stop');
 const btnSave = document.getElementById('btn-save');
 const btnLoad = document.getElementById('btn-load');
-const btnFolder = document.getElementById('btn-folder');
 const btnNewtab = document.getElementById('btn-newtab');
-const saveFolderInput = document.getElementById('save-folder');
+const multiPageCheck = document.getElementById('multi-page');
+const pageCountWrap = document.getElementById('page-count-wrap');
+const pageCountInput = document.getElementById('page-count');
 const output = document.getElementById('output');
 const progressEl = document.getElementById('progress');
 const progressText = document.getElementById('progress-text');
@@ -15,8 +16,6 @@ const progressFill = document.getElementById('progress-fill');
 
 let crawling = false;
 let stopRequested = false;
-let crawlTabId = null;
-let saveDirHandle = null;
 
 // 모드 감지: popup / sidepanel / tab
 function detectMode() {
@@ -50,70 +49,72 @@ function randomDelay() {
   return new Promise(r => setTimeout(r, ms));
 }
 
-function waitForTabLoad(tabId) {
-  return new Promise((resolve) => {
-    function listener(id, info) {
-      if (id === tabId && info.status === 'complete') {
-        chrome.tabs.onUpdated.removeListener(listener);
-        resolve();
-      }
-    }
-    chrome.tabs.onUpdated.addListener(listener);
-  });
-}
-
 function sanitizeFilename(name) {
   return name.replace(/[<>:"/\\|?*]+/g, '_').trim();
 }
 
-// ── 폴더 선택 (탭/사이드패널 모드에서만 동작) ──
-async function pickFolder() {
-  try {
-    saveDirHandle = await window.showDirectoryPicker({ mode: 'readwrite' });
-    saveFolderInput.value = saveDirHandle.name;
-  } catch (e) {
-    if (e.name !== 'AbortError') {
-      log('폴더 선택 실패: ' + e.message);
-    }
+// ── fetch를 background service worker를 통해 수행 ──
+function fetchPage(url) {
+  return new Promise((resolve, reject) => {
+    chrome.runtime.sendMessage({ action: 'fetch', url }, (res) => {
+      if (chrome.runtime.lastError) {
+        reject(new Error(chrome.runtime.lastError.message));
+      } else if (!res || !res.ok) {
+        reject(new Error(res?.error || 'fetch 실패'));
+      } else {
+        resolve(res.html);
+      }
+    });
+  });
+}
+
+// ── HTML 파싱 유틸 ──
+function parseHTML(html) {
+  return new DOMParser().parseFromString(html, 'text/html');
+}
+
+// ── 멀티페이지 URL 생성 ──
+function buildPageUrls(baseUrl, pageCount) {
+  const url = new URL(baseUrl);
+  // 기존 spage 파라미터 제거 후 1부터 생성
+  const urls = [];
+  for (let i = 1; i <= pageCount; i++) {
+    url.searchParams.set('spage', i);
+    urls.push(url.href);
   }
+  return urls;
 }
 
-// File System Access API로 파일 저장
-async function saveFile(dirHandle, subFolder, fileName, content) {
-  const subDir = await dirHandle.getDirectoryHandle(subFolder, { create: true });
-  const fileHandle = await subDir.getFileHandle(fileName, { create: true });
-  const writable = await fileHandle.createWritable();
-  await writable.write(content);
-  await writable.close();
-}
-
-// ── 목록 페이지에서 제목 + 챕터 추출 (탭에 inject) ──
-function extractListData() {
-  const title = document.querySelector('.view-title .view-content span b')?.textContent?.trim();
+// ── 목록 페이지에서 제목 + 챕터 추출 ──
+function extractListData(doc, baseUrl) {
+  const title = doc.querySelector('.view-title .view-content span b')?.textContent?.trim();
   const chapters = [];
-  document.querySelectorAll('.wr-subject a').forEach(a => {
+  doc.querySelectorAll('.wr-subject a').forEach(a => {
     const clone = a.cloneNode(true);
     clone.querySelectorAll('span').forEach(s => s.remove());
     const text = clone.textContent.trim();
-    const href = a.href;
-    if (text && href) chapters.push([text, href]);
+    const href = a.getAttribute('href');
+    if (text && href) {
+      const fullUrl = new URL(href, baseUrl).href;
+      chapters.push([text, fullUrl]);
+    }
   });
   return { title, chapters };
 }
 
-// ── 챕터 페이지에서 본문 추출 (탭에 inject) ──
-function extractChapterContent() {
-  const el = document.querySelector('#novel_content');
+// ── 챕터 페이지에서 본문 추출 ──
+function extractChapterContent(doc) {
+  const el = doc.querySelector('#novel_content');
   if (!el) return null;
   el.querySelectorAll('p').forEach(p => {
     const text = p.textContent.trim();
     p.replaceWith(text + '\n\n');
   });
-  return document.querySelector('#novel_content')?.textContent?.trim() || null;
+  return doc.querySelector('#novel_content')?.textContent?.trim() || null;
 }
 
 // ── 크롤링 메인 로직 ──
-async function startCrawling(url, rangeStart, rangeEnd, jumpNumber) {
+async function startCrawling(urls, rangeStart, rangeEnd) {
   crawling = true;
   stopRequested = false;
   btnStart.disabled = true;
@@ -121,66 +122,74 @@ async function startCrawling(url, rangeStart, rangeEnd, jumpNumber) {
   output.textContent = '';
   hideProgress();
 
-  const useFS = !!saveDirHandle;
-
   try {
-    // 1. 백그라운드 탭 생성 → 목록 페이지 로드
-    log('목록 페이지 로딩 중...');
-    const tab = await chrome.tabs.create({ url, active: false });
-    crawlTabId = tab.id;
-    await waitForTabLoad(tab.id);
+    // 1. 모든 목록 페이지에서 챕터 수집
+    let title = null;
+    const allChapters = [];
+    const seenHrefs = new Set();
 
-    // 2. 목록 데이터 추출
-    const [listResult] = await chrome.scripting.executeScript({
-      target: { tabId: tab.id },
-      func: extractListData,
-    });
+    for (let i = 0; i < urls.length; i++) {
+      if (stopRequested) break;
+      log(`목록 페이지 ${i + 1}/${urls.length} 로딩 중...`);
 
-    const { title, chapters: rawChapterList } = listResult.result;
+      let listHtml;
+      try {
+        listHtml = await fetchPage(urls[i]);
+      } catch (e) {
+        log(`ERROR: 목록 페이지 로드 실패 (${e.message}). 사이트에 먼저 접속하여 CF를 통과해주세요.`);
+        return;
+      }
+      const listDoc = parseHTML(listHtml);
+      const { title: pageTitle, chapters } = extractListData(listDoc, urls[i]);
+
+      if (!title && pageTitle) title = pageTitle;
+
+      for (const [chTitle, chLink] of chapters) {
+        if (!seenHrefs.has(chLink)) {
+          seenHrefs.add(chLink);
+          allChapters.push([chTitle, chLink]);
+        }
+      }
+    }
 
     if (!title) {
       log('ERROR: 소설 제목을 찾을 수 없습니다. 사이트에 먼저 접속하여 CF를 통과해주세요.');
       return;
     }
 
-    if (rawChapterList.length === 0) {
+    if (allChapters.length === 0) {
       log('ERROR: 챕터 목록이 비어있습니다.');
       return;
     }
 
     // 오름차순 정렬 (사이트는 최신순이므로 reverse)
-    const chapterList = rawChapterList.slice().reverse();
+    const chapterList = allChapters.slice().reverse();
 
     log(`소설 제목: ${title}`);
     log(`전체 챕터 수: ${chapterList.length}`);
-    if (useFS) {
-      log(`저장 위치: ${saveDirHandle.name}/${sanitizeFilename(title)}/`);
-    } else {
-      log('저장 위치: Downloads 폴더');
-    }
 
-    // 3. Range/Jump 계산
-    let startIndex = 0;
+    // 2. Range 계산
     const rs = Number(rangeStart);
     const re = Number(rangeEnd);
-    const jn = Number(jumpNumber);
+    let startIdx = 0;
+    let endIdx = chapterList.length;
 
-    if (!Number.isNaN(rs) && !Number.isNaN(re) && !Number.isNaN(jn) && re > rs) {
-      startIndex = jn - rs;
-      if (startIndex < 0) startIndex = 0;
-      if (startIndex >= chapterList.length) startIndex = chapterList.length - 1;
-      log(`이어받기 ${jn}화 → 시작 인덱스 ${startIndex}`);
-    } else {
-      log('처음부터 시작합니다.');
+    if (!Number.isNaN(rs) && rs > 0) {
+      startIdx = rs - 1;
+      if (startIdx < 0) startIdx = 0;
+    }
+    if (!Number.isNaN(re) && re > 0) {
+      endIdx = re;
+      if (endIdx > chapterList.length) endIdx = chapterList.length;
     }
 
-    const chaptersToScan = chapterList.slice(startIndex);
+    const chaptersToScan = chapterList.slice(startIdx, endIdx);
     const totalCount = chaptersToScan.length;
-    log(`스캔 대상: ${totalCount}개 챕터\n`);
+    log(`스캔 대상: ${startIdx + 1}~${startIdx + totalCount}화 (${totalCount}개)\n`);
 
     const safeTitle = sanitizeFilename(title);
 
-    // 4. 챕터 순차 크롤링
+    // 3. 챕터 순차 크롤링
     for (let i = 0; i < totalCount; i++) {
       if (stopRequested) {
         log('\n크롤링이 중단되었습니다.');
@@ -190,17 +199,16 @@ async function startCrawling(url, rangeStart, rangeEnd, jumpNumber) {
       const [chTitle, chLink] = chaptersToScan[i];
       updateProgress(i + 1, totalCount, chTitle);
 
-      // 같은 탭에서 챕터 페이지로 이동
-      await chrome.tabs.update(tab.id, { url: chLink });
-      await waitForTabLoad(tab.id);
-
-      // 본문 추출
-      const [chResult] = await chrome.scripting.executeScript({
-        target: { tabId: tab.id },
-        func: extractChapterContent,
-      });
-
-      const content = chResult.result;
+      // 챕터 페이지 fetch
+      let chHtml;
+      try {
+        chHtml = await fetchPage(chLink);
+      } catch (e) {
+        log(`[${i + 1}/${totalCount}] ${chTitle} ❌ (${e.message})`);
+        continue;
+      }
+      const chDoc = parseHTML(chHtml);
+      const content = extractChapterContent(chDoc);
 
       if (!content) {
         log(`[${i + 1}/${totalCount}] ${chTitle} ❌ (본문 없음)`);
@@ -209,17 +217,12 @@ async function startCrawling(url, rangeStart, rangeEnd, jumpNumber) {
 
       // 파일 저장
       const safeChTitle = sanitizeFilename(chTitle);
-
-      if (useFS) {
-        await saveFile(saveDirHandle, safeTitle, `${safeChTitle}.txt`, content);
-      } else {
-        const dataUrl = 'data:text/plain;charset=utf-8,' + encodeURIComponent(content);
-        await chrome.downloads.download({
-          url: dataUrl,
-          filename: `${safeTitle}/${safeChTitle}.txt`,
-          conflictAction: 'uniquify',
-        });
-      }
+      const dataUrl = 'data:text/plain;charset=utf-8,' + encodeURIComponent(content);
+      await chrome.downloads.download({
+        url: dataUrl,
+        filename: `${safeTitle}/${safeChTitle}.txt`,
+        conflictAction: 'uniquify',
+      });
 
       log(`[${i + 1}/${totalCount}] ${chTitle} ✅`);
 
@@ -228,10 +231,6 @@ async function startCrawling(url, rangeStart, rangeEnd, jumpNumber) {
         await randomDelay();
       }
     }
-
-    // 5. 탭 닫기
-    try { await chrome.tabs.remove(tab.id); } catch (_) {}
-    crawlTabId = null;
 
     if (!stopRequested) {
       log('\n모든 챕터 스캔 완료! 🚀');
@@ -248,6 +247,11 @@ async function startCrawling(url, rangeStart, rangeEnd, jumpNumber) {
 
 // ── 이벤트 리스너 ──
 
+// 여러 페이지 체크박스 토글
+multiPageCheck.addEventListener('change', () => {
+  pageCountWrap.classList.toggle('hidden', !multiPageCheck.checked);
+});
+
 // 새 탭에서 열기
 btnNewtab.addEventListener('click', () => {
   const currentUrl = document.getElementById('url').value;
@@ -255,20 +259,6 @@ btnNewtab.addEventListener('click', () => {
     + (currentUrl ? '&url=' + encodeURIComponent(currentUrl) : '');
   chrome.tabs.create({ url: tabUrl });
 });
-
-// 폴더 선택
-btnFolder.addEventListener('click', () => {
-  if (MODE === 'popup') {
-    // 팝업에서는 폴더 선택 불가 → 새 탭으로 유도
-    const currentUrl = document.getElementById('url').value;
-    const tabUrl = chrome.runtime.getURL('popup.html') + '?mode=tab'
-      + (currentUrl ? '&url=' + encodeURIComponent(currentUrl) : '');
-    chrome.tabs.create({ url: tabUrl });
-  } else {
-    pickFolder();
-  }
-});
-saveFolderInput.addEventListener('click', () => btnFolder.click());
 
 // Start
 form.addEventListener('submit', (e) => {
@@ -278,11 +268,20 @@ form.addEventListener('submit', (e) => {
   const url = document.getElementById('url').value.trim();
   const rangeStart = document.getElementById('range-start').value;
   const rangeEnd = document.getElementById('range-end').value;
-  const jumpNumber = document.getElementById('jump-number').value;
 
   if (!url) { log('URL을 입력해주세요.'); return; }
 
-  startCrawling(url, rangeStart, rangeEnd, jumpNumber);
+  let urls;
+  if (multiPageCheck.checked) {
+    const count = parseInt(pageCountInput.value);
+    if (!count || count < 1) { log('페이지 수를 입력해주세요.'); return; }
+    urls = buildPageUrls(url, count);
+    log(`${count}개 페이지 URL 생성`);
+  } else {
+    urls = [url];
+  }
+
+  startCrawling(urls, rangeStart, rangeEnd);
 });
 
 // Stop
@@ -297,7 +296,8 @@ btnSave.addEventListener('click', async () => {
     url: document.getElementById('url').value,
     rangeStart: document.getElementById('range-start').value,
     rangeEnd: document.getElementById('range-end').value,
-    jumpNumber: document.getElementById('jump-number').value,
+    multiPage: multiPageCheck.checked,
+    pageCount: pageCountInput.value,
   };
   await chrome.storage.local.set({ settings: data });
   log('설정 저장 완료.');
@@ -312,7 +312,9 @@ async function loadSettings() {
   document.getElementById('url').value = settings.url || '';
   document.getElementById('range-start').value = settings.rangeStart || '';
   document.getElementById('range-end').value = settings.rangeEnd || '';
-  document.getElementById('jump-number').value = settings.jumpNumber || '';
+  multiPageCheck.checked = settings.multiPage || false;
+  pageCountInput.value = settings.pageCount || '';
+  pageCountWrap.classList.toggle('hidden', !multiPageCheck.checked);
 }
 
 // ── 초기화 ──
@@ -326,18 +328,20 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.body.classList.add('sidepanel');
   }
 
+  // 저장된 설정 로드
+  const { settings } = await chrome.storage.local.get('settings');
+
   if (urlFromPage) {
     document.getElementById('url').value = urlFromPage;
+  } else if (settings) {
+    document.getElementById('url').value = settings.url || '';
   }
 
-  // 저장된 설정 로드 (URL은 파라미터 값 우선)
-  const { settings } = await chrome.storage.local.get('settings');
   if (settings) {
-    if (!urlFromPage) {
-      document.getElementById('url').value = settings.url || '';
-    }
     document.getElementById('range-start').value = settings.rangeStart || '';
     document.getElementById('range-end').value = settings.rangeEnd || '';
-    document.getElementById('jump-number').value = settings.jumpNumber || '';
+    multiPageCheck.checked = settings.multiPage || false;
+    pageCountInput.value = settings.pageCount || '';
+    pageCountWrap.classList.toggle('hidden', !multiPageCheck.checked);
   }
 });

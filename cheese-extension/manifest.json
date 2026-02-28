@@ -3,8 +3,11 @@
   "name": "Cheese Crawler",
   "version": "1.0",
   "description": "Novel chapter crawler",
-  "permissions": ["activeTab", "scripting", "storage", "downloads", "tabs"],
+  "permissions": ["storage", "downloads", "tabs"],
   "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "background.js"
+  },
   "action": {
     "default_popup": "popup.html",
     "default_title": "Cheese Crawler"
