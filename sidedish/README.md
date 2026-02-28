@@ -1,2 +1,0 @@
-# Purpose
-scan the website.
