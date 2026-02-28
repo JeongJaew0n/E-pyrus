@@ -1,0 +1,26 @@
+{
+  "manifest_version": 3,
+  "name": "Cheese Crawler",
+  "version": "1.0",
+  "description": "Novel chapter crawler",
+  "permissions": ["activeTab", "scripting", "storage", "downloads", "tabs"],
+  "host_permissions": ["<all_urls>"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Cheese Crawler"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "include_globs": ["*://booktoki*.com/novel/*"],
+      "js": ["content.js"],
+      "css": ["content.css"]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["popup.html", "popup.js", "popup.css"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}
