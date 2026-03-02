@@ -6,6 +6,9 @@ const btnSave = document.getElementById('btn-save');
 const btnLoad = document.getElementById('btn-load');
 const btnNewtab = document.getElementById('btn-newtab');
 const multiPageCheck = document.getElementById('multi-page');
+const manualCfCheck = document.getElementById('manual-cf');
+const cfCookieWrap = document.getElementById('cf-cookie-wrap');
+const cfCookieInput = document.getElementById('cf-cookie');
 const pageCountWrap = document.getElementById('page-count-wrap');
 const pageCountInput = document.getElementById('page-count');
 const output = document.getElementById('output');
@@ -55,12 +58,18 @@ function sanitizeFilename(name) {
 
 // ── fetch를 background service worker를 통해 수행 ──
 function fetchPage(url) {
+  const msg = { action: 'fetch', url };
+  if (manualCfCheck.checked && cfCookieInput.value.trim()) {
+    msg.cfCookie = cfCookieInput.value.trim();
+  }
   return new Promise((resolve, reject) => {
-    chrome.runtime.sendMessage({ action: 'fetch', url }, (res) => {
+    chrome.runtime.sendMessage(msg, (res) => {
       if (chrome.runtime.lastError) {
         reject(new Error(chrome.runtime.lastError.message));
       } else if (!res || !res.ok) {
-        reject(new Error(res?.error || 'fetch 실패'));
+        const err = new Error(res?.error || 'fetch 실패');
+        err.debug = res?.debug;
+        reject(err);
       } else {
         resolve(res.html);
       }
@@ -136,7 +145,13 @@ async function startCrawling(urls, rangeStart, rangeEnd) {
       try {
         listHtml = await fetchPage(urls[i]);
       } catch (e) {
-        log(`ERROR: 목록 페이지 로드 실패 (${e.message}). 사이트에 먼저 접속하여 CF를 통과해주세요.`);
+        log(`ERROR: 목록 페이지 로드 실패 (${e.message})`);
+        if (e.debug) {
+          log(`  status: ${e.debug.status} ${e.debug.statusText}`);
+          log(`  cookies: [${e.debug.cookies?.join(', ')}]`);
+          log(`  cf_clearance: ${e.debug.hasCfClearance ? 'O' : 'X'}`);
+          log(`  response body:\n${e.debug.bodyPreview}`);
+        }
         return;
       }
       const listDoc = parseHTML(listHtml);
@@ -252,6 +267,11 @@ multiPageCheck.addEventListener('change', () => {
   pageCountWrap.classList.toggle('hidden', !multiPageCheck.checked);
 });
 
+// CF 쿠키 직접 입력 토글
+manualCfCheck.addEventListener('change', () => {
+  cfCookieWrap.classList.toggle('hidden', !manualCfCheck.checked);
+});
+
 // 새 탭에서 열기
 btnNewtab.addEventListener('click', () => {
   const currentUrl = document.getElementById('url').value;
@@ -298,6 +318,8 @@ btnSave.addEventListener('click', async () => {
     rangeEnd: document.getElementById('range-end').value,
     multiPage: multiPageCheck.checked,
     pageCount: pageCountInput.value,
+    manualCf: manualCfCheck.checked,
+    cfCookie: cfCookieInput.value,
   };
   await chrome.storage.local.set({ settings: data });
   log('설정 저장 완료.');
@@ -315,6 +337,9 @@ async function loadSettings() {
   multiPageCheck.checked = settings.multiPage || false;
   pageCountInput.value = settings.pageCount || '';
   pageCountWrap.classList.toggle('hidden', !multiPageCheck.checked);
+  manualCfCheck.checked = settings.manualCf || false;
+  cfCookieInput.value = settings.cfCookie || '';
+  cfCookieWrap.classList.toggle('hidden', !manualCfCheck.checked);
 }
 
 // ── 초기화 ──

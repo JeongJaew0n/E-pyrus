@@ -3,7 +3,7 @@
   "name": "Cheese Crawler",
   "version": "1.0",
   "description": "Novel chapter crawler",
-  "permissions": ["storage", "downloads", "tabs"],
+  "permissions": ["storage", "downloads", "tabs", "cookies", "scripting"],
   "host_permissions": ["<all_urls>"],
   "background": {
     "service_worker": "background.js"

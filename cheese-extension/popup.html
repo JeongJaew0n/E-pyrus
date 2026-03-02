@@ -42,6 +42,18 @@
       </div>
     </div>
 
+    <div class="checkbox-row">
+      <label class="checkbox-label">
+        <input type="checkbox" id="manual-cf">
+        CF 쿠키 직접 입력
+        <span class="help-icon" data-tooltip="자동 쿠키 전달이 안 될 때, 브라우저 개발자도구에서 cf_clearance 값을 복사하여 입력합니다.">?</span>
+      </label>
+      <div id="cf-cookie-wrap" class="hidden">
+        <label for="cf-cookie">cf_clearance</label>
+        <input type="text" id="cf-cookie" placeholder="cf_clearance 값 붙여넣기">
+      </div>
+    </div>
+
     <div class="buttons">
       <button type="submit" id="btn-start">크롤링 시작</button>
       <button type="button" id="btn-stop" disabled>중단</button>
